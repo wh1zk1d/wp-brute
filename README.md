@@ -6,4 +6,4 @@
 
 ## Notice
 
-Use this _only_ for testing the security your own sites. I don't accept any responsibility for any illegal usage.
+Use this **only** for testing the security of your own sites. I don't accept any responsibility for any illegal usage.
