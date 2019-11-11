@@ -1,6 +1,7 @@
 const logo = require('asciiart-logo')
 const config = require('./package.json')
 const inquirer = require('inquirer')
+const chalk = require('chalk')
 
 const readWordlist = require('./readWordlist')
 const attack = require('./attack')
@@ -28,7 +29,7 @@ console.log(logo(config).render())
 
 inquirer.prompt(userInput).then(input => {
   readWordlist(input.wordlist).then(passwords => {
-    console.log('[✓] Wordlist is ready')
+    console.log(chalk.green('[✓] Wordlist is ready'))
     attack(input.url, input.username, passwords)
   })
 })
